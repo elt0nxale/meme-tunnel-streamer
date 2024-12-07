@@ -1,4 +1,4 @@
-module memessr
+module meme-fetcher
 
 go 1.23.4
 
