@@ -14,6 +14,7 @@ type ConnectionLog struct {
 	Timestamp      time.Time   `json:"timestamp"`
 	RemoteAddr     string      `json:"remote_addr"`
 	RequestHeaders http.Header `json:"request_headers"`
+	RequestPath    string      `json:"request_path"` // New field for request path
 	Events         []string    `json:"events"`
 }
 
@@ -46,6 +47,7 @@ func (cm *Manager) AddConnection(r *http.Request) string {
 		Timestamp:      time.Now(),
 		RemoteAddr:     r.RemoteAddr,
 		RequestHeaders: r.Header,
+		RequestPath:    r.URL.Path, // Capture the request path
 		Events:         []string{},
 	}
 

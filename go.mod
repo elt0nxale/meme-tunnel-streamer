@@ -3,6 +3,7 @@ module meme-fetcher
 go 1.23.4
 
 require (
+	github.com/joho/godotenv v1.5.1
 	github.com/rs/cors v1.11.1
 	github.com/urfave/cli/v2 v2.27.5
 	golang.ngrok.com/ngrok v1.11.0
@@ -13,7 +14,6 @@ require (
 	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/inconshreveable/log15 v3.0.0-testing.5+incompatible // indirect
 	github.com/inconshreveable/log15/v3 v3.0.0-testing.5 // indirect
-	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/jpillora/backoff v1.0.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
