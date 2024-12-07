@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meme SSE Debugger</title>
+    <style>
+        body { font-family: Arial; display: flex; }
+        #memeContainer { flex: 2; text-align: center; }
+        #debugContainer { flex: 1; border-left: 1px solid #ccc; padding: 10px; overflow-y: auto; }
+        img { max-width: 100%; height: auto; }
+        .debug-log { font-size: 0.8em; margin-bottom: 10px; border-bottom: 1px solid #eee; }
+    </style>
+</head>
+<body>
+    <div id="memeContainer">
+        <h1>Meme SSE Debugger</h1>
+        <h2 id="memeTitle">Waiting for memes...</h2>
+        <img id="memeImage" src="" alt="Meme">
+        <p id="connectionID">Connection ID: N/A</p>
+    </div>
+    <div id="debugContainer">
+        <h2>Debug Logs</h2>
+        <div id="debugLogs"></div>
+    </div>
+    <script>
+        const eventSource = new EventSource('/memes');
+        const titleEl = document.getElementById('memeTitle');
+        const imageEl = document.getElementById('memeImage');
+        const connectionIDEl = document.getElementById('connectionID');
+        const debugLogsEl = document.getElementById('debugLogs');
+
+        // Fetch debug logs periodically
+        function fetchDebugLogs() {
+            fetch('/debug')
+                .then(response => response.json())
+                .then(logs => {
+                    debugLogsEl.innerHTML = logs.map(log => 
+                        `<div class="debug-log">
+                            <strong>Connection ${log.id}</strong><br>
+                            Remote: ${log.remote_addr}<br>
+                            Time: ${new Date(log.timestamp).toLocaleString()}<br>
+                            Events: ${log.events.join(' → ')}
+                        </div>`
+                    ).join('');
+                });
+        }
+
+        eventSource.onmessage = function(event) {
+            const meme = JSON.parse(event.data);
+            titleEl.textContent = meme.title;
+            imageEl.src = meme.url;
+            connectionIDEl.textContent = 'Connection ID: ' + meme.connID;
+            fetchDebugLogs();
+        };
+
+        eventSource.onerror = function(error) {
+            console.error('EventSource failed:', error);
+            eventSource.close();
+        };
+
+        // Initial log fetch
+        fetchDebugLogs();
+    </script>
+</body>
+</html>
