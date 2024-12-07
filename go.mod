@@ -1,8 +1,9 @@
-module memessr
+module meme-fetcher
 
 go 1.23.4
 
 require (
+	github.com/joho/godotenv v1.5.1
 	github.com/rs/cors v1.11.1
 	github.com/urfave/cli/v2 v2.27.5
 	golang.ngrok.com/ngrok v1.11.0
