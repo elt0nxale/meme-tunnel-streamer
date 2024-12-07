@@ -9,6 +9,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/joho/godotenv"
 	"github.com/rs/cors"
 	"github.com/urfave/cli/v2"
 	"golang.ngrok.com/ngrok"
@@ -21,8 +22,14 @@ import (
 var content embed.FS
 
 func main() {
+
+	// Load environment variables from the .env file
+	if err := godotenv.Load(); err != nil {
+		log.Fatalf("Error loading .env file: %v", err)
+	}
+
 	app := &cli.App{
-		Name:  "meme-sse-debugger",
+		Name:  "meme-feetcher",
 		Usage: "Server-Sent Events Meme Debugger with Ngrok Tunneling",
 		Flags: []cli.Flag{
 			&cli.IntFlag{
