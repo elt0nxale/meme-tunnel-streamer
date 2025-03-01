@@ -105,10 +105,11 @@ func (s *Server) handleMemeSSE(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
+			// Flush to client
 			flusher.Flush()
 
 			// Wait before next meme
-			time.Sleep(5 * time.Second)
+			time.Sleep(10 * time.Second)
 		}
 	}
 }
