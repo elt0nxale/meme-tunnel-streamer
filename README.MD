@@ -1,4 +1,4 @@
-# meme-fetcher
+# meme-tunnel-streamer
 - allows multiple client connections to *stream* real time memes from reddit's r/memes. 
 - *stream* here refers to live [Server-Sent Events (SSE)](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) coming through the http connection every 5 seconds
 - [gorrilla/mux](https://pkg.go.dev/github.com/gorilla/mux#section-readme) is a multiplexer to handle serving multiple requests
